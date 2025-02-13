@@ -1,31 +1,209 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para mi Gatita ❤️🐱</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Para mi hermosa Gatita ❤️</title>
+  <style>
+    /* Estilos generales y fondo romántico en degradado */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+      color: #fff;
+      text-align: center;
+      overflow-x: hidden;
+    }
+
+    header {
+      padding: 20px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 4em; /* Letras grandes para el título */
+    }
+
+    /* Botón de inicio */
+    #startBtn {
+      padding: 15px 25px;
+      font-size: 2em; /* Texto del botón más grande */
+      margin: 20px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      background-color: #ff6f91;
+      color: white;
+      transition: background-color 0.3s;
+    }
+    
+    #startBtn:hover {
+      background-color: #ff8fa3;
+    }
+
+    /* Área de animación */
+    #animation-area {
+      position: relative;
+      width: 100%;
+      height: 300px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    
+    #animation-area img {
+      position: absolute;
+      width: 150px;
+      height: auto;
+      transition: all 2s ease;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+    
+    /* Gatito izquierdo: posición inicial fuera de la pantalla y posición final al centro */
+    #catLeft {
+      left: -200px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    
+    #catLeft.move {
+      left: 20%;
+    }
+    
+    /* Gatito derecho: posición inicial fuera de la pantalla y posición final al centro */
+    #catRight {
+      right: -200px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    
+    #catRight.move {
+      right: 20%;
+    }
+    
+    /* Área de narración */
+    #narration {
+      font-size: 2.5em; /* Texto de la narración más grande */
+      margin: 30px 20px;
+      min-height: 50px;
+      transition: opacity 1s ease;
+    }
+    
+    /* Mensaje final, inicialmente oculto */
+    #final-message {
+      margin: 40px 20px;
+      opacity: 0;
+      transition: opacity 2s ease;
+    }
+    
+    #final-message.visible {
+      opacity: 1;
+    }
+    
+    #final-message p {
+      font-size: 2.5em; /* Texto final más grande */
+    }
+    
+    #final-message img {
+      width: 200px;
+      height: auto;
+      border-radius: 10px;
+      margin-top: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+    
+    /* Diseño responsivo */
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2.5em;
+      }
+      #startBtn {
+        font-size: 1.5em;
+      }
+      #animation-area {
+        height: 200px;
+      }
+      #animation-area img {
+        width: 100px;
+      }
+      #narration {
+        font-size: 2em;
+      }
+      #final-message p {
+        font-size: 2em;
+      }
+      #final-message img {
+        width: 150px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Para mi hermosa Gatita ❤️</h1>
-        <p>Esta es la historia de dos gatitos enamorados...</p>
-        <button id="startStory">Comenzar historia</button>
-        
-        <div id="story" class="hidden">
-            <div id="scene">
-                <img src="https://cdn.pixabay.com/photo/2016/03/28/09/36/cat-1285634_1280.png" class="cat" id="cat1" alt="Gatito 1">
-                <img src="https://cdn.pixabay.com/photo/2017/01/31/23/50/cat-2022343_1280.png" class="cat" id="cat2" alt="Gatito 2">
-            </div>
-            <p id="storyText"></p>
-        </div>
-
-        <div id="finalMessage" class="hidden">
-            <p>Gatita, eres mi felicidad, mi amor y mi razón de sonreír cada día. ❤️</p>
-            <img src="https://source.unsplash.com/400x300/?cats,love" alt="Gatitos enamorados">
-        </div>
+  <header>
+    <h1>Para mi hermosa Gatita ❤️</h1>
+  </header>
+  <main>
+    <!-- Botón para iniciar la historia -->
+    <button id="startBtn">Comenzar historia</button>
+    
+    <!-- Área donde se moverán las imágenes de los gatitos -->
+    <div id="animation-area">
+      <!-- Gatito izquierdo (Pixabay) -->
+      <img id="catLeft" src="Cat2.webp" alt="Gatito 1">
+      <!-- Gatito derecho (Pixabay) -->
+      <img id="catRight" src="Cat3.webp" alt="Gatito 2">
     </div>
-
-    <script src="script.js"></script>
+    
+    <!-- Área para la narración progresiva -->
+    <div id="narration"></div>
+    
+    <!-- Mensaje final con imagen de gatitos enamorados (Pixabay) -->
+    <div id="final-message">
+      <p>El amor siempre encuentra su camino. ❤️</p>
+      <img src="Cat1.webp" alt="Gatitos enamorados">
+    </div>
+  </main>
+  <script>
+    // Al hacer clic en "Comenzar historia"
+    document.getElementById('startBtn').addEventListener('click', function() {
+      // Ocultar el botón
+      this.style.display = 'none';
+      
+      // Iniciar animación: mover los gatitos hacia el centro
+      document.getElementById('catLeft').classList.add('move');
+      document.getElementById('catRight').classList.add('move');
+  
+      // Después de que finalice la animación (2.5 segundos aprox.)
+      setTimeout(function() {
+        var narrationDiv = document.getElementById('narration');
+        var phrases = [
+          "Desde el primer momento, supe que eras especial.",
+          "Nuestros corazones laten al unísono.",
+          "Cada mirada, cada ronroneo, habla de amor.",
+          "Juntos, somos la perfecta melodía de amor felino."
+        ];
+        var index = 0;
+  
+        // Función para mostrar las frases de manera progresiva
+        function showNextPhrase() {
+          if (index < phrases.length) {
+            narrationDiv.style.opacity = 0;
+            setTimeout(function() {
+              narrationDiv.textContent = phrases[index];
+              narrationDiv.style.opacity = 1;
+              index++;
+              setTimeout(showNextPhrase, 3000);
+            }, 500);
+          } else {
+            // Mostrar mensaje final una vez terminada la narración
+            var finalMsg = document.getElementById('final-message');
+            finalMsg.classList.add('visible');
+          }
+        }
+        showNextPhrase();
+      }, 2500);
+    });
+  </script>
 </body>
 </html>
